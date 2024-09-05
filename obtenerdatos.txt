@@ -1,0 +1,23 @@
+def obtener_datos_clima(ciudad, formato):
+    api_key = 'd81d727f1ed6666de01304257cd19b66'
+    url = f'''http://api.openweathermap.org/data/2.5/weather?q={
+        ciudad}&appid={api_key}&units=metric&lang=es'''
+    respuesta = requests.get(url)
+    datos = respuesta.json()
+
+    if formato == 'JSON':
+        return json.dumps(datos, indent=4)
+    elif formato == 'CSV':
+        nombre_archivo = f'{ciudad}_clima.csv'
+        with open(nombre_archivo, mode='w', newline='', encoding='utf-8') as archivo_csv:
+            escritor_csv = csv.writer(archivo_csv)
+            for clave, valor in datos.items():
+                escritor_csv.writerow([clave, valor])
+        return f"Datos guardados en {nombre_archivo}"
+    elif formato == 'Texto':
+        descripcion = datos['weather'][0]['description']
+        temp = datos['main']['temp']
+        humedad = datos['main']['humidity']
+        return f'Clima en {ciudad}:\nDescripción: {descripcion}\nTemperatura: {temp}°C\nHumedad: {humedad}%'
+    else:
+        return 'Formato no reconocido'
