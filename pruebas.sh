@@ -1,15 +1,16 @@
 #!/bin/bash
 
+# Activar entorno virtual en Windows usando Git Bash
 source .venv/Scripts/activate
 
-#Aca metemos las pruebas mas basicas
+# Aquí metemos las pruebas más básicas
 echo "Probando con formato JSON..."
-python3 clima_cli.py --ciudad Madrid --formato JSON
+python app.py --ciudad Madrid --formato JSON
 
 echo "Probando con formato CSV..."
-python3 clima_cli.py --ciudad Tokyo --formato CSV
+python app.py --ciudad Tokyo --formato CSV
 
 echo "Probando con formato Texto..."
-python3 clima_cli.py --ciudad "Asuncion" --formato Texto
+python app.py --ciudad "Asuncion" --formato Texto
 
 echo "Pruebas completadas."
